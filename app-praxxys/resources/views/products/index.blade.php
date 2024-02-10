@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+    @if(Session::has('success'))
+        <div>
+            {{Session::get('success')}}
+        </div>
+    @endif
     <h1>Product</h1>
     <div>
 <a href="{{route('product.create')}}">Create a Product</a>
@@ -18,6 +23,7 @@
                     <th>Name</th>
                     <th>Category</th>
                     <th>Description</th>
+                    <th>Product Image</th>
                     <th>Date and Time</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -27,6 +33,7 @@
                         <td>{{$product->Name}}</td>
                         <td>{{$product->Category}}</td>
                         <td>{{$product->Description}}</td>
+                        <td><img src="{{$product->Image}}" width="200" height="112"/></td>
                         <td>{{$product->Date_and_Time}}</td>
                         <td>
                             <!--'product' is the parameter passed in url-->
@@ -44,6 +51,12 @@
                 @endforeach
             </tr>
         </table>
+    </div>
+    <div>
+        <form method="POST" action="{{route('user.logout')}}">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
     </div>
 </body>
 </html>

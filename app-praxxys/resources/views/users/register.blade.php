@@ -7,26 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-                @endforeach
-        </ul>
-        @endif
     @if(Session::has('fail'))
-    <div>
-        {{Session::get('fail')}}
-    </div>
+        <div>
+            {{Session::get('fail')}}
+        </div>
     @endif
     <div>
-        <form method=post action="{{route('user.login')}}">
+        <form method=post action="{{route('user.register')}}">
             @csrf
             @method('post')
             Username <input type="text" name="username"/>
+            Email <input type="text" name="email"/>
             Password <input type="password" name="password"/>
-            <input type="checkbox" name="remember" />Remember Me
-            <input type="submit" value="LOGIN"/>
+            Confirm Password <input type="password" name="confirmpassword"/>
+            <input type="submit" value="REGISTER"/>
         </form>
     </div>
 </body>

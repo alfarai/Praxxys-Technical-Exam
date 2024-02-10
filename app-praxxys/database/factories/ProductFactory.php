@@ -22,6 +22,7 @@ class ProductFactory extends Factory
             'Name' => fake()->name(),
             'Category' => fake()->words(1,true),
             'Description' => fake()-> sentence(10),
+            'Image' => '/placeholder.webp',
             'Date_and_Time' => fake()->dateTime(),
         ];
     }

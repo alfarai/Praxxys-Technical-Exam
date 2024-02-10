@@ -16,7 +16,7 @@
         </ul>
         @endif
     </div>
-    <form method="post" action="{{route('product.store')}}">
+    <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
         @csrf
         @method('post')
         <div>
@@ -25,13 +25,25 @@
         </div>
 
         <div>
-            <label>Category</label>
-            <input type="text" name="Category" placeholder="Category"/>
+            <label for="products">Category</label>
+            <select id="products" name="Category">
+                <option value="Fruits">Fruits</option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Meat">Meats</option>
+                <option value="Chicken">Chicken</option>
+                <option value="Beef">Beef</option>
+                <option value="Other">Others</option>
+            </select>
         </div>
 
         <div>
             <label>Description</label>
             <input type="text" name="Description" placeholder="Description"/>
+        </div>
+
+        <div>
+            <label>Image</label>
+            <input type="file" name="Image" multiple/>
         </div>
         
         <div>
