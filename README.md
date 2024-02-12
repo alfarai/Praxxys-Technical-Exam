@@ -2,7 +2,7 @@
 
 My submission for Praxxys Internship as BE Developer by Benito Male
 
-## Installation
+# Installation
 
 To install and run on a local machine:
 1. Setup XAMPP Environment: https://www.apachefriends.org/
