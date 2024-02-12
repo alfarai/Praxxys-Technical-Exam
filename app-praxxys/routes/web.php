@@ -27,7 +27,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('/product/{product}/edit',[ProductController::class,'edit'])->name('product.edit'); #get edit page with product to be edited
     Route::put('/product/{product}/update',[ProductController::class,'update'])->name('product.update'); #update products from edit page
     Route::post('/product/{product}/delete',[ProductController::class,'delete'])->name('product.delete'); #update products from edit page
-    Route::post('',[UserController::class,'logout'])->name('user.logout'); #auth user via login
+    Route::get('',[UserController::class,'logout'])->name('user.logout'); #auth user via login
 });
 
 Route::group(['middleware'=>'guest'],function(){

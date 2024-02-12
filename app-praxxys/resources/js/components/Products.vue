@@ -1,13 +1,21 @@
+<style>
+table td {
+    font-weight: bold;
 
+}
+
+table th {
+    font-size: large;
+}
+</style>
 <template>
+    
     <div>
-        <div>
-            <input type="text" placeholder="Search" v-model="search">
-        </div>
-        <table border="2" class="table">
+        
+        <table class="table table-hover table-sm table-responsive table-striped table-borderless" >
 
             <thead>
-                <tr>
+                <tr class="text-center table-dark">
                     <th>ID</th>
                     <th>Name</th>
                     <th>Category</th>
@@ -19,8 +27,8 @@
                 </tr>
             </thead>
 
-            <tbody class="searchable tbody">
-                <tr v-for="product in products.data">
+            <tbody class="searchable tbody text-center ">
+                <tr v-for="product in products.data" class="table-dark">
                     <!--@foreach($products as $product)--> <!--from controller-->
 
                     <td>{{ product.id }}</td>
@@ -32,7 +40,7 @@
                     <td>
                         <!--'product' is the parameter passed in url-->
                         <!-- <a href="{{route('product.edit',['product'=>product])}}">Edit</a> -->
-                        <a :href="`/product/${product.id}/edit`">Edit</a>
+                        <a :href="`/product/${product.id}/edit`"><button class="btn btn-primary">Edit</button></a>
                     </td>
 
                     <td>
@@ -40,7 +48,7 @@
                                     <input type="submit" value="DELETE"/>
                                 </form> -->
                         <!-- <a :href="`/product/${product.id}/edit`">Edit</a> -->
-                        <button @click="deleteProduct(product.id)">DELETE</button>
+                        <button @click="deleteProduct(product.id)" class="btn btn-primary">DELETE</button>
                     </td>
 
                     <!-- @endforeach -->
@@ -49,23 +57,29 @@
             </tbody>
 
         </table>
-        <div>
-            <label for="category">Category</label>
-
-            <select name="category" id="category" v-model="selectedCategory">
-                <option value="none">No Filter</option>
-                <option value="fruit">Fruit</option>
-                <option value="vegetable">Vegetable</option>
-                <option value="pork">Pork</option>
-                <option value="beef">Beef</option>
-                <option value="chicken">Chicken</option>
-                <option value="others">Others</option>
-            </select>
+        
+        <div class="button-group" style="padding-left:5px; padding-bottom:5px;">
+            <button style="margin-right:5px;" class="btn btn-outline-light" v-for="page in pages" :key="page" @click="getProducts(page, this.selectedCategory)" href="#">{{ page
+            }}</button>
         </div>
-        <div>
-            <button v-for="page in pages" :key="page" @click="getProducts(page,this.selectedCategory)" href="#">{{ page }}</button>
+        <div style="position:relative;">
+            <div class="input-group" style="width:30%;position:absolute;left:0;padding-top:5px;">
+                <span class="input-group-text" id="basic-addon1">Search</span>
+                <input type="text" placeholder="Search" v-model="search" class="form-control">
+            </div>
 
-
+            <div style="width:20%;position:absolute;padding-top:5px; right:0;">
+                <select name="category" id="category" v-model="selectedCategory" class="form-select form-select-sm"
+                    aria-label="Category">
+                    <option value="none">No Filter</option>
+                    <option value="fruit">Fruit</option>
+                    <option value="vegetable">Vegetable</option>
+                    <option value="pork">Pork</option>
+                    <option value="beef">Beef</option>
+                    <option value="chicken">Chicken</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
         </div>
     </div>
 </template>
@@ -83,37 +97,37 @@ export default {
             pages: [],
             currentPage: 1,
             selectedCategory: 'none',
-            search:''
+            search: ''
         }
     },
-    watch:{
-        selectedCategory(newCategory,oldCategory){
-            if(oldCategory != this.selectedCategory){
+    watch: {
+        selectedCategory(newCategory, oldCategory) {
+            if (oldCategory != this.selectedCategory) {
                 this.selectedCategory = newCategory;
-                this.getProducts(this.currentPage,this.selectedCategory);
+                this.getProducts(this.currentPage, this.selectedCategory);
             }
         },
-        search(newText,oldText){
-            if(newText != ''){
-                this.getProducts(this.currentPage,this.selectedCategory,this.search);
+        search(newText, oldText) {
+            if (newText != '') {
+                this.getProducts(this.currentPage, this.selectedCategory, this.search);
             }
-            else if(newText == ''){
+            else if (newText == '') {
                 this.search = undefined;
             }
         }
     },
     methods: {
-        getProducts(page, category= 'none',search) {
+        getProducts(page, category = 'none', search) {
 
             //if No Filter option is selected, dont put category params in url
             let url = `/api/products?page=${page}`;
-            
-            if(category != 'none'){
+
+            if (category != 'none') {
                 //url += `?category=${category}`
                 url = `/api/products?category=${this.selectedCategory}&page=${page}`;
                 //console.log(category);
             }
-            if(search != undefined){
+            if (search != undefined) {
                 url += `&search=${search}`
                 //console.log(search);
             }

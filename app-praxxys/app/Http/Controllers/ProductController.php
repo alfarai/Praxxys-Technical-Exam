@@ -85,6 +85,8 @@ class ProductController extends Controller
         //dd($product);
         return view('products.edit',['product'=>$product]);
     }
+    
+        
     public function update(Product $product, Request $request){
         $request->validate([
             'Name' => 'required|string',
