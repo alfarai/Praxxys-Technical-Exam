@@ -21,12 +21,12 @@ Route::get('/', function () {
 #dont forget to import controller
 #middleware aliases are in kernel.php
 Route::group(['middleware'=>'auth'],function(){
-    Route::get('/product',[ProductController::class,'index'])->name('product.index'); #get index page
+    Route::get('/products',[ProductController::class,'index'])->name('product.index'); #get index page
     Route::get('/product/create',[ProductController::class,'create'])->name('product.create'); #get create page
     Route::post('/product',[ProductController::class,'store'])->name('product.store'); #saving products to db
     Route::get('/product/{product}/edit',[ProductController::class,'edit'])->name('product.edit'); #get edit page with product to be edited
     Route::put('/product/{product}/update',[ProductController::class,'update'])->name('product.update'); #update products from edit page
-    Route::delete('/product/{product}/delete',[ProductController::class,'delete'])->name('product.delete'); #update products from edit page
+    Route::post('/product/{product}/delete',[ProductController::class,'delete'])->name('product.delete'); #update products from edit page
     Route::post('',[UserController::class,'logout'])->name('user.logout'); #auth user via login
 });
 

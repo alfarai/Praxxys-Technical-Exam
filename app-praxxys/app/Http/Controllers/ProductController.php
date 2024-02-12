@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     public function index(){
-        $product = Product::all(); #retrieve all contents of product table
-        return view('products.index',['products'=> $product]); #pass it to view
+        $product = Product::latest(); #retrieve all contents of product table
+        
+        return view('products.index',compact('product')); #pass it to view
+
+        
     }
     public function create(){
         return view('products.create');
@@ -37,7 +40,7 @@ class ProductController extends Controller
             'Name' => 'required|string',
             'Category' => 'required|string',
             'Description'=> 'required|string',
-            'Image' => 'image|mimes:jpg,jpeg,png|max:3000',
+            'Image' => 'required|image|mimes:jpg,jpeg,png',
             'Date' => 'required|date',
             'Time' => 'required'
         ]);
@@ -83,19 +86,33 @@ class ProductController extends Controller
         return view('products.edit',['product'=>$product]);
     }
     public function update(Product $product, Request $request){
-        $data = $request->validate([
+        $request->validate([
             'Name' => 'required|string',
             'Category' => 'required|string',
             'Description'=> 'required|string',
+            'Image'=> 'required|image|mimes:jpeg,png',
             'Date' => 'required|date',
             'Time' => 'required'
         ]);
+        
+        
         
         $product->Name = $request->input('Name');
         $product->Category = $request->input('Category');
         $product->Description = $request->input('Description');
         $product->Date_and_Time= sprintf('%s-%s',$request->input('Date'),$request->input('Time'));
+
+        $file = $request->file('Image'); #contains an array of images
         
+        $extension=$file->getClientOriginalExtension();
+        $filename = time().'.'.$extension;
+        $path = $file->storeAs('images',$filename,'public');
+        //$file->storeAs('images',$filename,'public');
+        $imagePath = '/storage/'.$path;
+
+
+        $product->Image = $imagePath;
+
         $product->save();
         
         

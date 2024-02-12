@@ -19,10 +19,10 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'Name' => fake()->name(),
-            'Category' => fake()->words(1,true),
+            'Name' => fake()->words(2,true),
+            'Category' => fake()->randomElement(['Fruit','Vegetable','Pork','Beef','Chicken','Others']),
             'Description' => fake()-> sentence(10),
-            'Image' => '/placeholder.webp',
+            'Image' => '/storage/images/placeholder.png',
             'Date_and_Time' => fake()->dateTime(),
         ];
     }

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Fortify::registerView(function () {
             return view('auth.register');
         });
+
+        Paginator::useBootstrap();
     }
 }

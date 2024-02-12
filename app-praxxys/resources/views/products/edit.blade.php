@@ -8,15 +8,7 @@
 <body>
     
     <h1>Edit a product</h1>
-    <div>
-        @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-                @endforeach
-        </ul>
-        @endif
-    </div>
+    
     <div>
         @if(session()->has('success'))
         <div>
@@ -33,7 +25,7 @@
         </ul>
         @endif
     </div>
-    <form method="post" action="{{route('product.update',['product'=>$product])}}">
+    <form method="post" action="{{route('product.update',['product'=>$product])}}" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div>
@@ -49,6 +41,11 @@
         <div>
             <label>Description</label>
             <input type="text" name="Description" placeholder="Description" value="{{$product->Description}}"/>
+        </div>
+
+        <div>
+            <label>Image</label>
+            <input type="file" name="Image" multiple/>
         </div>
         
         <div>

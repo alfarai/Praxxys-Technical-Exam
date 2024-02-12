@@ -1,7 +1,17 @@
 import './bootstrap';
+//import '../css/app.css';
 
-import Alpine from 'alpinejs';
 
-window.Alpine = Alpine;
 
-Alpine.start();
+
+import { createApp } from 'vue';
+import Test from './components/Products.vue'
+
+const app = createApp()
+app.component('Products',Test);
+app.mount('#app')
+
+
+
+
+
