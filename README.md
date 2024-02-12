@@ -25,7 +25,7 @@ php artisan serve
 
 ```
 
-#Populating the database
+# Populating the database
 To populate the database, run the following commands in VS Code terminals:
 ```
 php artisan db:seed
@@ -34,13 +34,13 @@ php artisan db:seed --class=ProductsSeeder
 ```
 The first command populates the default user database, while the second command populates the products database.
 
-#INCASE IMAGES DON'T WORK
+# INCASE IMAGES DON'T WORK
 Delete /storage folder under /public, then run the following command:
 ```
 php artisan storage:link
 ```
 
-#Credits
+# Credits
 This application was developed using the Laravel 10 framework with Vue, designed with Bootstrap 5
 	
 
